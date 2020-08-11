@@ -1,0 +1,25 @@
+plugins {
+    id "org.springframework.boot" version "$SPRING_BOOT_VERSION"
+}
+
+jar.enabled = true
+
+bootJar {
+    archiveClassifier = "boot"
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+    implementation project(":adf-common")
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

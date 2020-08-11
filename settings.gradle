@@ -1,0 +1,5 @@
+rootProject.name = 'adf-gateway'
+include 'gateway-service'
+include 'gateway-test-functional'
+include 'adf-common'
+

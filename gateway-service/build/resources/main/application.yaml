@@ -1,0 +1,97 @@
+# ===================================================================
+# Gateway Service application spring boot properties
+# @author opentext
+# ===================================================================
+
+spring:
+  application:
+    name: gateway-service
+  servlet:
+    multipart:
+      enabled: false
+
+server:
+  port: 9081
+  max-http-header-size: 8192 # Maximum size of the HTTP message header
+  connection-timeout: 60000
+  ssl:
+    enabled: false
+    #key-store-type: JKS # The format used for the keystore
+    #key-store:  # The path to the keystore containing the certificate
+    #key-store-password:  # The password used to generate the certificate
+    #key-alias:  # The alias mapped to the certificate
+    #trust-store:
+    #trust-store-type:
+    #trust-store-password:
+  servlet:
+    session:
+      tracking-modes: 'cookie'
+      timeout: 5m
+      cookie:
+        name: GATEWAY_JSESSIONID
+        http-only: true
+        secure: true
+    contextpath: /
+
+  # =================================================
+  # Embedded Tomcat properties
+  # =================================================
+  tomcat:
+    max-connections: 400 # Maximum number of connections, the server accepts and any given time.
+    max-http-post-size: 4096 # Maximum size of the HTTP post content (4KB)
+    max-swallow-size: 4096 # Maximum amount of request body to swallow.
+    max-threads: 200 # Maximum amount of worker threads.
+    min-spare-threads: 50 # Minimum amount of worker threads.
+    resource:
+      allow-caching: false
+    remote-ip-header: X-FORWARDED-FOR
+    accept-count: 100 # Max queue incoming connection requests when all request threads are in use.
+
+# Hystrix definitions for command and thread pool
+hystrix:
+  command:
+    command1:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+      circuitBreaker:
+        requestVolumeThreshold: 100
+        sleepWindowInMilliseconds: 3000
+  threadpool:
+    default:
+      coreSize: 25
+      maximumSize: 100
+      keepAliveTimeMinutes: 5
+      allowMaximumSizeToDivergeFromCoreSize: true
+
+# Actuator properties
+management:
+  endpoints:
+    web:
+      base-path: /manage
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always
+      diskSpace:
+        enabled: false
+
+crypto:
+  keyId:
+  secretKey:
+  salt:
+
+#Authentication properties
+authentication:
+  username: bat
+  password: man
+  stateless-session: true
+
+adf:
+  common:
+    #Properties for the embedded tomcat, not provided as default spring boot configuration
+    tomcat:
+      max-keep-alive-requests: -1
+      max-header-counts: 100

@@ -1,0 +1,30 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'idea'
+}
+
+ext {
+    SPRING_BOOT_VERSION = '2.2.2.RELEASE'
+    RELEASE_VERSION     = '0.0.2-SNAPSHOT'
+    GROUP_ID            = 'com.opentext.adf'
+}
+
+subprojects{
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+    group = "$GROUP_ID"
+    version = "$RELEASE_VERSION"
+    archivesBaseName = 'adf-' + name
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:$SPRING_BOOT_VERSION")
+        }
+    }
+}
