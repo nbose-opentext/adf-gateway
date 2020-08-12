@@ -4,7 +4,7 @@ plugins {
 }
 
 ext {
-    SPRING_BOOT_VERSION = '2.2.2.RELEASE'
+    SPRING_BOOT_VERSION = '2.3.2.RELEASE'
     RELEASE_VERSION     = '0.0.2-SNAPSHOT'
     GROUP_ID            = 'com.opentext.adf'
 }
